@@ -4,11 +4,11 @@ Bootprint releases are built from an immutable `vVERSION` Git tag and published 
 
 ## One-time maintainer setup
 
-1. Create the public GitHub repository at `magnexis/bootprint` with `main` as its default branch.
+1. Create the public GitHub repository at `theworker02/bootprint` with `main` as its default branch.
 2. Apply the repository controls in [docs/maintainer-setup.md](docs/maintainer-setup.md).
 3. Create a RubyGems.org account, enable MFA for UI and API operations, and verify the account email.
 4. On RubyGems.org, create a pending trusted publisher for the new `bootprint` gem with:
-   - GitHub owner: `magnexis`
+   - GitHub owner: `theworker02`
    - repository: `bootprint`
    - workflow: `release.yml`
    - environment: `release`

@@ -1,6 +1,6 @@
 # GitHub and RubyGems maintainer setup
 
-This checklist covers settings that cannot be represented completely by committed files. Apply it after creating `magnexis/bootprint` and before publishing the first gem.
+This checklist covers settings that cannot be represented completely by committed files. Apply it after creating `theworker02/bootprint` and before publishing the first gem.
 
 ## Repository profile
 

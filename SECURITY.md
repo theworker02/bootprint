@@ -44,4 +44,4 @@ Run `bootprint security audit bootprint.lock` before sharing a snapshot outside 
 
 ## Reporting vulnerabilities
 
-Please use [GitHub private vulnerability reporting](https://github.com/magnexis/bootprint/security/advisories/new) or email `security@magnexis.com`. Do not open a public issue or include real credentials or production snapshots. Include the affected Bootprint version, operating system, Ruby engine, sanitized reproduction, and expected impact. Expect acknowledgement within seven days.
+Please use [GitHub private vulnerability reporting](https://github.com/theworker02/bootprint/security/advisories/new) or email `security@magnexis.com`. Do not open a public issue or include real credentials or production snapshots. Include the affected Bootprint version, operating system, Ruby engine, sanitized reproduction, and expected impact. Expect acknowledgement within seven days.

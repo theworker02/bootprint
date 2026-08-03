@@ -7,7 +7,7 @@
 <p align="center"><strong>Reproduce the environment, not just the dependencies.</strong></p>
 
 <p align="center">
-  <a href="https://github.com/magnexis/bootprint/actions/workflows/test.yml"><img alt="Test status" src="https://github.com/magnexis/bootprint/actions/workflows/test.yml/badge.svg"></a>
+  <a href="https://github.com/theworker02/bootprint/actions/workflows/test.yml"><img alt="Test status" src="https://github.com/theworker02/bootprint/actions/workflows/test.yml/badge.svg"></a>
   <img alt="Bootprint 0.2.0" src="https://img.shields.io/badge/version-0.2.0-CC342D">
   <img alt="Ruby 3.1 or newer" src="https://img.shields.io/badge/Ruby-%E2%89%A5%203.1-CC342D?logo=ruby&logoColor=white">
   <img alt="Snapshot schema version 2" src="https://img.shields.io/badge/snapshot_schema-v2-3977F6">

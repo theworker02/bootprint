@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
     "diagnoses dangerous environment drift, and provides policy-aware",
     "remediation for CI, Docker, staging, and production."
   ].join(" ")
-  spec.homepage = "https://github.com/magnexis/bootprint"
+  spec.homepage = "https://github.com/theworker02/bootprint"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.1"
   spec.required_rubygems_version = ">= 3.3.0"
