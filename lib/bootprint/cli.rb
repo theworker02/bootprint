@@ -407,7 +407,7 @@ module Bootprint
       raise OptionParser::InvalidArgument, "NAME may contain only letters, numbers, dots, underscores, and hyphens" unless valid
     end
 
-    def safe_name(value) = value.to_s.gsub(/[^a-zA-Z0-9_.-]+/, "-").gsub(/\A-+|-+\z/, "")
+    def safe_name(value) = value.to_s.gsub(/[^a-zA-Z0-9_.-]+/, "-").gsub(/\A-++|-++\z/, "")
 
     def reject_extra_arguments!
       raise OptionParser::ParseError, "unexpected arguments: #{@argv.join(' ')}" unless @argv.empty?
