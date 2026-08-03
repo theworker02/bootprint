@@ -59,7 +59,10 @@ module Bootprint
     def blocking? = findings.any? { |finding| finding.blocking?(policy) }
 
     def counts
-      Rules::Rule::SEVERITIES.to_h { |severity| [severity.to_s, findings.count { |finding| finding.severity == severity && !finding.suppressed }] }
+      Rules::Rule::SEVERITIES.to_h do |severity|
+        count = findings.count { |finding| finding.severity == severity && !finding.suppressed }
+        [severity.to_s, count]
+      end
     end
 
     def to_h

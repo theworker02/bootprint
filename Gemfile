@@ -5,4 +5,4 @@ gemspec
 
 gem "minitest", "~> 5.0"
 gem "rake", "~> 13.0"
-gem "rubocop", "~> 1.75", require: false
+gem "rubocop", "~> 1.75.0", require: false

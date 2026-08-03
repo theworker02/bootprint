@@ -75,8 +75,8 @@ module Bootprint
         start = lines.index(heading)
         return [] unless start
 
-        lines.drop(start + 1).take_while { |line| line.empty? || line.start_with?("  ") }
-                             .filter_map { |line| line.strip unless line.strip.empty? }
+        section = lines.drop(start + 1).take_while { |line| line.empty? || line.start_with?("  ") }
+        section.filter_map { |line| line.strip unless line.strip.empty? }
       end
 
       def single_section_value(lines, heading)
