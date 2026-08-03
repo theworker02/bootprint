@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
     "LICENSE*",
     "CHANGELOG.md",
     ".bootprint.yml.example"
-  ].sort
+  ].select { |path| File.file?(path) }.sort
   spec.bindir = "exe"
   spec.executables = ["bootprint"]
   spec.require_paths = ["lib"]
