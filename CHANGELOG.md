@@ -2,6 +2,12 @@
 
 All notable changes to Bootprint are documented here. The project follows Semantic Versioning before and after 1.0 where practical.
 
+## Unreleased
+
+### Added
+
+- A versioned VS Code extension package with capture, diagnose, doctor, verify, installation-check, streamed-output, workspace-trust, and configurable Bundler support.
+
 ## 0.2.0 - 2026-08-02
 
 ### Added

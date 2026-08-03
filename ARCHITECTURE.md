@@ -30,6 +30,7 @@ human / JSON / SARIF / Markdown / CI annotations
 - Formatters contain no detection logic.
 - Docker and security-audit code are lazy-loaded by their CLI commands.
 - Rails hooks load only when `Rails::Railtie` already exists; expensive profiling requires `BOOTPRINT_PROFILE_BOOT=1`.
+- The VS Code extension is a workspace-trusted process adapter. It spawns the same Ruby CLI without a shell and contains no duplicate diagnosis logic.
 
 ## Plugin contract
 

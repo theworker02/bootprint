@@ -42,6 +42,7 @@ Bootprint 0.2 combines a dependency compatibility analyzer, Rails boot inspector
 - [Rules and plugins](#rules-and-plugins)
 - [Privacy and security](#privacy-and-security)
 - [Platform support and performance](#platform-support-and-performance)
+- [VS Code extension](#vs-code-extension)
 - [Documentation](#documentation)
 - [Development](#development)
 
@@ -388,6 +389,28 @@ Bootprint is designed around these practical limits:
 
 Rails, Docker, SARIF, and plugin code are lazy-loaded so basic CLI use does not pay for integrations it does not invoke. Performance varies with Ruby, filesystem, dependency count, and host load.
 
+## VS Code extension
+
+Bootprint includes a buildable VS Code extension in [`editors/vscode`](editors/vscode). It provides capture, diagnose, doctor, and verify commands, streams CLI output inside the editor, and adds snapshot diagnosis to the Explorer context menu.
+
+The extension uses the workspace bundle by default:
+
+```ruby
+gem "bootprint", "~> 0.2"
+```
+
+Build and install the versioned VSIX locally:
+
+```console
+cd editors/vscode
+npm install
+npm run check
+npm run package:vsix
+code --install-extension ../../pkg/bootprint-vscode-0.2.0.vsix
+```
+
+See the [VS Code extension guide](editors/vscode/README.md) for commands, configuration, trust behavior, and direct-executable setup.
+
 ## Documentation
 
 - [Installation](docs/installation.md)
@@ -405,6 +428,7 @@ Rails, Docker, SARIF, and plugin code are lazy-loaded so basic CLI use does not 
 - [Snapshot schema](docs/snapshot-schema.md)
 - [Troubleshooting](docs/troubleshooting.md)
 - [Maintainer setup](docs/maintainer-setup.md)
+- [VS Code extension](editors/vscode/README.md)
 
 ## Development
 

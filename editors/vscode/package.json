@@ -1,0 +1,145 @@
+{
+  "name": "bootprint",
+  "displayName": "Bootprint",
+  "description": "Diagnose Ruby runtime-environment drift from VS Code.",
+  "version": "0.2.0",
+  "publisher": "theworker02",
+  "license": "MIT",
+  "icon": "images/bootprint-logo-128.png",
+  "preview": false,
+  "pricing": "Free",
+  "galleryBanner": {
+    "color": "#171A21",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theworker02/bootprint.git"
+  },
+  "homepage": "https://github.com/theworker02/bootprint",
+  "bugs": {
+    "url": "https://github.com/theworker02/bootprint/issues"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Testing"
+  ],
+  "keywords": [
+    "ruby",
+    "rails",
+    "bundler",
+    "environment",
+    "diagnostics",
+    "ci"
+  ],
+  "main": "./extension.js",
+  "extensionKind": [
+    "workspace"
+  ],
+  "activationEvents": [
+    "onCommand:bootprint.capture",
+    "onCommand:bootprint.diagnose",
+    "onCommand:bootprint.doctor",
+    "onCommand:bootprint.verify",
+    "onCommand:bootprint.checkInstallation",
+    "onCommand:bootprint.openOutput"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "Bootprint executes the locally installed Ruby CLI in the workspace."
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "bootprint.capture",
+        "title": "Bootprint: Capture Environment",
+        "icon": "$(record)"
+      },
+      {
+        "command": "bootprint.diagnose",
+        "title": "Bootprint: Diagnose Against Snapshot",
+        "icon": "$(search-fuzzy)"
+      },
+      {
+        "command": "bootprint.doctor",
+        "title": "Bootprint: Run Doctor",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "bootprint.verify",
+        "title": "Bootprint: Verify Environment",
+        "icon": "$(verified)"
+      },
+      {
+        "command": "bootprint.checkInstallation",
+        "title": "Bootprint: Check CLI Installation"
+      },
+      {
+        "command": "bootprint.openOutput",
+        "title": "Bootprint: Show Output"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "bootprint.diagnose",
+          "when": "resourceExtname == .json || resourceFilename == bootprint.lock",
+          "group": "bootprint@1"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Bootprint",
+      "properties": {
+        "bootprint.useBundler": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run Bootprint through `bundle exec` so the workspace's locked gem is used."
+        },
+        "bootprint.executable": {
+          "type": "string",
+          "default": "bootprint",
+          "description": "Bootprint executable to use when `bootprint.useBundler` is disabled."
+        },
+        "bootprint.policyPath": {
+          "type": "string",
+          "default": "",
+          "description": "Optional policy path, relative to the workspace root or absolute."
+        },
+        "bootprint.privacy": {
+          "type": "string",
+          "enum": [
+            "standard",
+            "strict"
+          ],
+          "default": "standard",
+          "description": "Privacy mode used for captures."
+        },
+        "bootprint.revealOutput": {
+          "type": "string",
+          "enum": [
+            "always",
+            "onError",
+            "never"
+          ],
+          "default": "always",
+          "description": "When to reveal the Bootprint output channel."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "check": "node --test test/*.test.js && node --check extension.js",
+    "package:vsix": "node scripts/package-vsix.js",
+    "publish:openvsx": "node scripts/publish-open-vsx.js"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "3.9.2",
+    "ovsx": "1.1.0"
+  }
+}

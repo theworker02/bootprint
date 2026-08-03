@@ -54,8 +54,8 @@ The tag starts `.github/workflows/release.yml`, which:
 2. runs tests and RuboCop;
 3. builds, installs, and smoke-tests a preflight `.gem` from the tagged source;
 4. pauses at the protected `release` environment;
-5. rebuilds and publishes through the official RubyGems OIDC action;
-6. prints the published package's SHA-256 digest; and
+5. prints the release package's SHA-256 digest;
+6. rebuilds and publishes through the official RubyGems OIDC action; and
 7. creates a GitHub release with that same package attached.
 
 For 0.2.0, use the release title `Bootprint 0.2 — From Environment Differences to Actionable Diagnoses` when editing the generated GitHub release notes.
@@ -70,6 +70,20 @@ gem owner bootprint
 ```
 
 Confirm the RubyGems page shows the correct links, MIT license, Ruby requirement, MFA requirement, checksum, owners, and trusted publisher. Confirm the GitHub release attachment has the same SHA-256 digest as the workflow output.
+
+## Build the VS Code package
+
+Keep `editors/vscode/package.json` aligned with the intended extension release version. The extension depends on the Ruby gem at runtime but is versioned and distributed independently.
+
+```console
+cd editors/vscode
+npm ci
+npm run check
+npm run package:vsix
+code --install-extension ../../pkg/bootprint-vscode-VERSION.vsix
+```
+
+Before distributing the VSIX, inspect its contents with `vsce ls`, verify the bundled license and logo, and smoke-test capture and doctor commands in both Bundler and direct-executable modes. Publishing to the Visual Studio Marketplace requires a registered publisher and must be performed separately from the RubyGems release.
 
 ## Emergency and manual release policy
 
