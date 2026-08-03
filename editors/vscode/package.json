@@ -134,7 +134,7 @@
     }
   },
   "scripts": {
-    "check": "node --test test/*.test.js && node --check extension.js",
+    "check": "node --test test/*.test.js && node --check extension.js && node --check src/command.js && node --check scripts/package-vsix.js && node --check scripts/publish-open-vsx.js",
     "package:vsix": "node scripts/package-vsix.js",
     "publish:openvsx": "node scripts/publish-open-vsx.js"
   },

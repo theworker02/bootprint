@@ -9,6 +9,7 @@
 <p align="center">
   <a href="https://github.com/theworker02/bootprint/actions/workflows/test.yml"><img alt="Test status" src="https://github.com/theworker02/bootprint/actions/workflows/test.yml/badge.svg"></a>
   <a href="https://rubygems.org/gems/bootprint"><img alt="Bootprint on RubyGems" src="https://img.shields.io/gem/v/bootprint?logo=rubygems&logoColor=white&color=CC342D"></a>
+  <a href="https://open-vsx.org/extension/theworker02/bootprint"><img alt="Bootprint on Open VSX" src="https://img.shields.io/open-vsx/v/theworker02/bootprint?label=Open%20VSX&color=6C4FBB"></a>
   <img alt="Ruby 3.1 or newer" src="https://img.shields.io/badge/Ruby-%E2%89%A5%203.1-CC342D?logo=ruby&logoColor=white">
   <img alt="Snapshot schema version 2" src="https://img.shields.io/badge/snapshot_schema-v2-3977F6">
   <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-171A21"></a>
@@ -391,7 +392,7 @@ Rails, Docker, SARIF, and plugin code are lazy-loaded so basic CLI use does not 
 
 ## VS Code extension
 
-Bootprint includes a buildable VS Code extension in [`editors/vscode`](editors/vscode). It provides capture, diagnose, doctor, and verify commands, streams CLI output inside the editor, and adds snapshot diagnosis to the Explorer context menu.
+Bootprint includes an Open VSX-ready editor extension in [`editors/vscode`](editors/vscode), configured for publication as [`theworker02.bootprint`](https://open-vsx.org/extension/theworker02/bootprint). It provides capture, diagnose, doctor, and verify commands, streams CLI output inside the editor, and adds snapshot diagnosis to the Explorer context menu.
 
 The extension uses the workspace bundle by default:
 
@@ -409,7 +410,7 @@ npm run package:vsix
 code --install-extension ../../pkg/bootprint-vscode-0.2.0.vsix
 ```
 
-See the [VS Code extension guide](editors/vscode/README.md) for commands, configuration, trust behavior, and direct-executable setup.
+See the [editor extension guide](editors/vscode/README.md) for commands, configuration, trust behavior, Open VSX setup, and direct-executable setup.
 
 ## Documentation
 
@@ -429,6 +430,7 @@ See the [VS Code extension guide](editors/vscode/README.md) for commands, config
 - [Troubleshooting](docs/troubleshooting.md)
 - [Maintainer setup](docs/maintainer-setup.md)
 - [VS Code extension](editors/vscode/README.md)
+- [Open VSX publishing](docs/open-vsx.md)
 
 ## Development
 

@@ -71,7 +71,7 @@ gem owner bootprint
 
 Confirm the RubyGems page shows the correct links, MIT license, Ruby requirement, MFA requirement, checksum, owners, and trusted publisher. Confirm the GitHub release attachment has the same SHA-256 digest as the workflow output.
 
-## Build the VS Code package
+## Build and publish the Open VSX package
 
 Keep `editors/vscode/package.json` aligned with the intended extension release version. The extension depends on the Ruby gem at runtime but is versioned and distributed independently.
 
@@ -83,7 +83,9 @@ npm run package:vsix
 code --install-extension ../../pkg/bootprint-vscode-VERSION.vsix
 ```
 
-Before distributing the VSIX, inspect its contents with `vsce ls`, verify the bundled license and logo, and smoke-test capture and doctor commands in both Bundler and direct-executable modes. Publishing to the Visual Studio Marketplace requires a registered publisher and must be performed separately from the RubyGems release.
+Before distributing the VSIX, inspect its contents with `vsce ls`, verify the bundled license and logo, and smoke-test capture and doctor commands in both Bundler and direct-executable modes. Follow [docs/open-vsx.md](docs/open-vsx.md) for the one-time `theworker02` namespace and protected token setup.
+
+Use the manual **Open VSX** workflow to build an artifact without publishing. Set its `publish` input only for an intentional registry release from a reviewed ref. Open VSX versions are immutable, so increment the extension version before every subsequent publication.
 
 ## Emergency and manual release policy
 

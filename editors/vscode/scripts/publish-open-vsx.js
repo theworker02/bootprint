@@ -6,7 +6,8 @@ const path = require("node:path");
 const manifest = require("../package.json");
 
 if (!process.env.OVSX_PAT) {
-  throw new Error("OVSX_PAT is required to publish to Open VSX");
+  console.error("OVSX_PAT is required to publish to Open VSX");
+  process.exit(2);
 }
 
 const extensionRoot = path.join(__dirname, "..");

@@ -1,0 +1,75 @@
+name: Open VSX
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish the packaged extension to Open VSX
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build VSIX
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: editors/vscode/package-lock.json
+      - name: Install locked dependencies
+        working-directory: editors/vscode
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Check extension
+        working-directory: editors/vscode
+        run: npm run check
+      - name: Package versioned VSIX
+        working-directory: editors/vscode
+        run: npm run package:vsix
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bootprint-open-vsx
+          path: pkg/bootprint-vscode-*.vsix
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    name: Publish to Open VSX
+    if: ${{ inputs.publish }}
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: open-vsx
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: editors/vscode/package-lock.json
+      - name: Install locked dependencies
+        working-directory: editors/vscode
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Download packaged VSIX
+        uses: actions/download-artifact@v4
+        with:
+          name: bootprint-open-vsx
+          path: pkg
+      - name: Publish theworker02.bootprint
+        working-directory: editors/vscode
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        run: npm run publish:openvsx
+

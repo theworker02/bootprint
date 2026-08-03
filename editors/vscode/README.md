@@ -1,6 +1,8 @@
-# Bootprint for VS Code
+# Bootprint for Open VSX Editors
 
-Run Bootprint environment capture and compatibility diagnosis without leaving VS Code. The extension is a secure adapter around the official [`bootprint` Ruby gem](https://rubygems.org/gems/bootprint); diagnostic logic remains in the gem so CLI, CI, and editor results stay consistent.
+[![Open VSX](https://img.shields.io/open-vsx/v/theworker02/bootprint?label=Open%20VSX&color=6C4FBB)](https://open-vsx.org/extension/theworker02/bootprint)
+
+Run Bootprint environment capture and compatibility diagnosis from VSCodium, Eclipse Theia, and other Open VSX-compatible editors. The extension is a secure adapter around the official [`bootprint` Ruby gem](https://rubygems.org/gems/bootprint); diagnostic logic remains in the gem so CLI, CI, and editor results stay consistent. It remains compatible with VS Code for local VSIX installation.
 
 ## Requirements
 
@@ -42,3 +44,12 @@ The package is written to `pkg/bootprint-vscode-0.2.0.vsix` at the repository ro
 code --install-extension pkg/bootprint-vscode-0.2.0.vsix
 ```
 
+## Open VSX distribution
+
+The registry identifier is [`theworker02.bootprint`](https://open-vsx.org/extension/theworker02/bootprint). Once published, install it from an Open VSX-compatible editor's Extensions view or with VSCodium:
+
+```console
+codium --install-extension theworker02.bootprint
+```
+
+Maintainers should follow [`docs/open-vsx.md`](../../docs/open-vsx.md) for the one-time Eclipse account, publisher agreement, namespace, token, and protected GitHub environment setup. Registry publication is intentionally manual-only.
