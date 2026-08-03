@@ -38,11 +38,13 @@ npm run check
 npm run package:vsix
 ```
 
-The package is written to `pkg/bootprint-vscode-0.2.0.vsix` at the repository root. Install it with:
+The package is written to `pkg/bootprint-vscode-0.2.1.vsix` at the repository root. Install it with:
 
 ```console
-code --install-extension pkg/bootprint-vscode-0.2.0.vsix
+code --install-extension ../../pkg/bootprint-vscode-0.2.1.vsix --force
 ```
+
+The Bootprint logo appears in the editor's Extensions view and Open VSX listing. Windows may still show the operating system's generic `.vsix` file-type icon in File Explorer; that icon is controlled by the editor installation, not by extension metadata.
 
 ## Open VSX distribution
 

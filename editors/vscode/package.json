@@ -2,7 +2,7 @@
   "name": "bootprint",
   "displayName": "Bootprint",
   "description": "Diagnose Ruby runtime-environment drift from VS Code.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "theworker02",
   "license": "MIT",
   "icon": "images/bootprint-logo-128.png",

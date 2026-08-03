@@ -407,7 +407,7 @@ cd editors/vscode
 npm install
 npm run check
 npm run package:vsix
-code --install-extension ../../pkg/bootprint-vscode-0.2.0.vsix
+code --install-extension ../../pkg/bootprint-vscode-0.2.1.vsix --force
 ```
 
 See the [editor extension guide](editors/vscode/README.md) for commands, configuration, trust behavior, Open VSX setup, and direct-executable setup.
