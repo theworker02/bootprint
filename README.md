@@ -26,6 +26,8 @@ bootprint docker capture myapp:latest
 bootprint diagnose local myapp-latest
 ```
 
+The official editor extension is available from [Open VSX as `theworker02.bootprint`](https://open-vsx.org/extension/theworker02/bootprint).
+
 Bootprint 0.2 combines a dependency compatibility analyzer, Rails boot inspector, environment-drift detector, and CI policy engine. Ordinary capture performs no network requests, suggested commands never execute automatically, and environment-variable values are never recorded.
 
 ## Contents
@@ -392,7 +394,13 @@ Rails, Docker, SARIF, and plugin code are lazy-loaded so basic CLI use does not 
 
 ## VS Code extension
 
-Bootprint includes an Open VSX-ready editor extension in [`editors/vscode`](editors/vscode), configured for publication as [`theworker02.bootprint`](https://open-vsx.org/extension/theworker02/bootprint). It provides capture, diagnose, doctor, and verify commands, streams CLI output inside the editor, and adds snapshot diagnosis to the Explorer context menu.
+Bootprint includes an Open VSX-ready editor extension in [`editors/vscode`](editors/vscode), available from the official [`theworker02.bootprint` Open VSX listing](https://open-vsx.org/extension/theworker02/bootprint). It provides capture, diagnose, doctor, and verify commands, streams CLI output inside the editor, and adds snapshot diagnosis to the Explorer context menu.
+
+Install it from an Open VSX-compatible editor or with VSCodium:
+
+```console
+codium --install-extension theworker02.bootprint
+```
 
 The extension uses the workspace bundle by default:
 
