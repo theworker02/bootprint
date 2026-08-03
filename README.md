@@ -373,7 +373,7 @@ Security issues should follow the private reporting process in [SECURITY.md](SEC
 
 ## Platform support and performance
 
-The automated matrix covers MRI Ruby 3.1 through 3.4 on Linux, macOS, and Windows, with JRuby on Linux as experimental. Fixture coverage includes macOS development, Linux CI, Docker production, Windows development, ARM64 development, x86-64 deployment, Rails, and plain Ruby projects.
+The focused automated matrix covers the oldest supported MRI release on Linux and Ruby 3.4 on Linux, macOS, and Windows. Fixture coverage includes macOS development, Linux CI, Docker production, Windows development, ARM64 development, x86-64 deployment, Rails, and plain Ruby projects.
 
 Bootprint is designed around these practical limits:
 

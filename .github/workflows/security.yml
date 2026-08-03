@@ -1,18 +1,12 @@
-name: Security
+name: Security audit
 
 on:
-  push:
-    branches: [main]
-  pull_request:
+  workflow_dispatch:
   schedule:
     - cron: "19 6 * * 1"
 
 permissions:
   contents: read
-
-concurrency:
-  group: security-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   codeql:
@@ -33,16 +27,3 @@ jobs:
           languages: ruby
       - name: Analyze
         uses: github/codeql-action/analyze@v4
-
-  dependency-review:
-    name: Dependency review
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v6
-        with:
-          persist-credentials: false
-      - name: Review dependency changes
-        uses: actions/dependency-review-action@v4

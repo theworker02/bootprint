@@ -31,6 +31,13 @@ class SanitizerTest < Minitest::Test
     assert_equal checksum, result["lockfile_sha256"]
   end
 
+  def test_secret_named_presence_flags_remain_booleans
+    result = Bootprint::Sanitizer.recursive({ "SECRET_KEY_BASE" => true, "API_TOKEN" => false })
+
+    assert_equal true, result["SECRET_KEY_BASE"]
+    assert_equal false, result["API_TOKEN"]
+  end
+
   def test_strict_privacy_anonymizes_hostnames
     assert_equal "<HOST>", Bootprint::Sanitizer.sanitize_value("internal.example.com", privacy: :strict)
   end

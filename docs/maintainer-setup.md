@@ -16,13 +16,13 @@ This checklist covers settings that cannot be represented completely by committe
 - Require pull requests and at least one approving review.
 - Dismiss stale approvals when new commits are pushed.
 - Require conversation resolution.
-- Require the Test, Lint, Package, CodeQL, and Dependency Review checks where applicable.
+- Require the four focused CI compatibility checks.
 - Require branches to be up to date before merging.
 - Block force pushes and branch deletion.
 - Restrict bypass permission to release maintainers.
 - Add a tag ruleset protecting `v*` from deletion or update.
 
-The JRuby matrix entry is experimental and should not be a blocking required check until support is promoted from experimental.
+CodeQL runs weekly or on explicit maintainer request rather than adding another check to every pull request.
 
 ## Actions and security
 

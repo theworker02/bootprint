@@ -29,7 +29,7 @@ module Bootprint
       when Hash
         value.each_with_object({}) do |(key, nested), result|
           name = key.to_s
-          result[name] = if secret_name?(name, patterns)
+          result[name] = if secret_name?(name, patterns) && !boolean?(nested)
                            redaction_metadata(nested)
                          elsif safe_digest_name?(name) && !nested.is_a?(Hash) && !nested.is_a?(Array)
                            nested.to_s
@@ -54,6 +54,10 @@ module Bootprint
 
     def safe_digest_name?(name)
       name.match?(/(?:checksum|sha256|digest)\z/i)
+    end
+
+    def boolean?(value)
+      [true, false].include?(value)
     end
 
     def sensitive_value?(value)

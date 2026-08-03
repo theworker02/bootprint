@@ -18,6 +18,8 @@ All notable changes to Bootprint are documented here. The project follows Semant
 - Cross-platform fixtures, subprocess integration tests, CI matrix, examples, and public contributor documentation.
 - Original Bootprint brand mark, packaged logo assets, README badges, and expanded product and workflow documentation.
 - Release package validation, installed-gem smoke tests, GitHub security automation, and OIDC-based RubyGems trusted publishing.
+- Focused four-job compatibility CI, grouped monthly dependency updates, and a weekly/manual security audit to reduce workflow noise.
+- Presence-only handling for secret-named environment variables across the sanitizer and snapshot schema boundary.
 
 ## 0.1.0 - 2026-08-02
 

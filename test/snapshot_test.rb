@@ -17,6 +17,18 @@ class SnapshotTest < Minitest::Test
     previous.nil? ? ENV.delete("REDIS_URL") : ENV["REDIS_URL"] = previous
   end
 
+  def test_secret_named_environment_variable_is_presence_only
+    previous = ENV.fetch("SECRET_KEY_BASE", nil)
+    ENV["SECRET_KEY_BASE"] = "must-never-be-serialized"
+    captured = Bootprint::Snapshot.capture(label: "production")
+    serialized = JSON.generate(captured.data)
+
+    assert_equal true, captured.environment.dig("configuration", "environment_variables", "SECRET_KEY_BASE")
+    refute_includes serialized, "must-never-be-serialized"
+  ensure
+    previous.nil? ? ENV.delete("SECRET_KEY_BASE") : ENV["SECRET_KEY_BASE"] = previous
+  end
+
   def test_schema_v1_migrates_in_memory_and_preserves_unknown_fields
     legacy = {
       "schema_version" => 1,
