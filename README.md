@@ -8,13 +8,15 @@
 
 <p align="center">
   <a href="https://github.com/theworker02/bootprint/actions/workflows/test.yml"><img alt="Test status" src="https://github.com/theworker02/bootprint/actions/workflows/test.yml/badge.svg"></a>
-  <img alt="Bootprint 0.2.0" src="https://img.shields.io/badge/version-0.2.0-CC342D">
+  <a href="https://rubygems.org/gems/bootprint"><img alt="Bootprint on RubyGems" src="https://img.shields.io/gem/v/bootprint?logo=rubygems&logoColor=white&color=CC342D"></a>
   <img alt="Ruby 3.1 or newer" src="https://img.shields.io/badge/Ruby-%E2%89%A5%203.1-CC342D?logo=ruby&logoColor=white">
   <img alt="Snapshot schema version 2" src="https://img.shields.io/badge/snapshot_schema-v2-3977F6">
   <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-171A21"></a>
 </p>
 
 Bootprint is a local-first Ruby runtime fingerprint and compatibility diagnostic. It captures a sanitized description of an application environment, compares that description with CI, Docker, staging, or production, and turns raw drift into explanations, severity, evidence, remediation, and enforceable policy.
+
+Install the official [`bootprint` gem from RubyGems.org](https://rubygems.org/gems/bootprint):
 
 ```console
 gem install bootprint
