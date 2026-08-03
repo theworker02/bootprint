@@ -1,0 +1,9 @@
+/.bundle/
+/.bootprint/*.json
+/.yardoc/
+/*.gem
+/checksums/
+/coverage/
+/pkg/
+/tmp/
+/.ruby-lsp/

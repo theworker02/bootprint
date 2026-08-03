@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "yaml"
+
+paths = Dir[".github/**/*.yml"]
+abort "No GitHub configuration files found" if paths.empty?
+
+paths.each do |path|
+  YAML.safe_load_file(path, permitted_classes: [], permitted_symbols: [], aliases: true)
+  puts "Valid YAML: #{path}"
+rescue Psych::SyntaxError => error
+  warn "#{path}:#{error.line}:#{error.column}: #{error.problem}"
+  exit 1
+end

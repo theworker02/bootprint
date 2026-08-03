@@ -1,0 +1,85 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: ${{ matrix.os }} / Ruby ${{ matrix.ruby }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    continue-on-error: ${{ matrix.experimental || false }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        ruby: ["3.1", "3.2", "3.3", "3.4"]
+        include:
+          - os: ubuntu-latest
+            ruby: jruby
+            experimental: true
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Run tests
+        run: bundle exec rake test
+
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+      - name: Run RuboCop
+        run: bundle exec rake lint
+
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+      - name: Build RubyGem
+        run: bundle exec rake package
+      - name: Install and smoke-test RubyGem
+        run: |
+          gem install pkg/bootprint-*.gem --install-dir tmp/gem-home --bindir tmp/gem-bin --no-document
+          GEM_HOME="$PWD/tmp/gem-home" GEM_PATH="$PWD/tmp/gem-home" tmp/gem-bin/bootprint --version
+          GEM_HOME="$PWD/tmp/gem-home" GEM_PATH="$PWD/tmp/gem-home" tmp/gem-bin/bootprint help
+      - name: Upload RubyGem
+        uses: actions/upload-artifact@v4
+        with:
+          name: bootprint-rubygem
+          path: pkg/*.gem
+          if-no-files-found: error
+          retention-days: 7

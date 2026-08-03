@@ -1,0 +1,83 @@
+AllCops:
+  TargetRubyVersion: 3.1
+  NewCops: enable
+  SuggestExtensions: false
+  UseCache: false
+  Include:
+    - "lib/**/*.rb"
+    - "test/**/*.rb"
+    - "exe/*"
+    - "script/*"
+    - "Rakefile"
+    - "*.gemspec"
+  Exclude:
+    - "examples/rails_app/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+
+Layout/LineLength:
+  Max: 140
+  Exclude:
+    - "lib/bootprint/rules/builtin.rb"
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - "test/**/*"
+    - "lib/bootprint/rules/builtin.rb"
+    - "bootprint.gemspec"
+
+Metrics/ClassLength:
+  Max: 500
+
+Metrics/MethodLength:
+  Max: 70
+
+Metrics/AbcSize:
+  Max: 80
+
+Metrics/CyclomaticComplexity:
+  Max: 30
+
+Metrics/PerceivedComplexity:
+  Max: 30
+
+Metrics/ParameterLists:
+  Max: 12
+
+Metrics/ModuleLength:
+  Exclude:
+    - "lib/bootprint/rules/builtin.rb"
+
+Style/Documentation:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Naming/RescuedExceptionsVariableName:
+  PreferredName: error
+
+Naming/PredicateMethod:
+  Enabled: false
+
+Bundler/GemFilename:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/SafeNavigationChainLength:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Exclude:
+    - "lib/bootprint/rules/builtin.rb"

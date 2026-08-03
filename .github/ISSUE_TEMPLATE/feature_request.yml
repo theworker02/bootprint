@@ -1,0 +1,26 @@
+name: Feature request
+description: Propose focused Ruby reproducibility intelligence
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Reproducibility problem
+      description: Explain the concrete environment failure this would diagnose.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Safe evidence and proposed behavior
+      description: Do not include credentials or production snapshots.
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Area
+      options: [Collector, Rule, Rails, Docker, CI, Policy, Plugin API, Privacy, Documentation]
+    validations:
+      required: true

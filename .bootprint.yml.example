@@ -1,0 +1,37 @@
+version: 1
+
+mode: permissive
+minimum_severity: warning
+fail_on:
+  - error
+  - critical
+
+ignore:
+  - ruby-patch-level-drift
+
+expected_platforms:
+  - x86_64-linux
+
+allow:
+  environment_variables:
+    - OPTIONAL_ANALYTICS_KEY
+  paths:
+    - environment.operating_system.processors
+
+rules:
+  missing-environment-variable:
+    severity: critical
+  bundler-version-drift:
+    severity: warning
+
+redaction:
+  patterns:
+    - TOKEN
+    - SECRET
+    - PASSWORD
+    - PRIVATE_KEY
+  safe_list:
+    - PUBLIC_TOKEN_NAME
+
+plugins:
+  strict: false
