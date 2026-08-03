@@ -31,6 +31,7 @@ human / JSON / SARIF / Markdown / CI annotations
 - Docker and security-audit code are lazy-loaded by their CLI commands.
 - Rails hooks load only when `Rails::Railtie` already exists; expensive profiling requires `BOOTPRINT_PROFILE_BOOT=1`.
 - The VS Code extension is a workspace-trusted process adapter. It spawns the same Ruby CLI without a shell and contains no duplicate diagnosis logic.
+- The public website is a dependency-free static surface under `site/`; it has no access to snapshots or application data and is deployed independently through GitHub Pages.
 
 ## Plugin contract
 

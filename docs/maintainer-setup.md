@@ -5,10 +5,10 @@ This checklist covers settings that cannot be represented completely by committe
 ## Repository profile
 
 - Description: `Diagnose why Ruby environments work locally but fail in CI, Docker, staging, or production.`
-- Website: `https://rubygems.org/gems/bootprint`
+- Website: `https://theworker02.github.io/bootprint/`
 - Topics: `ruby`, `rails`, `bundler`, `rubygems`, `docker`, `ci`, `diagnostics`, `reproducibility`, `developer-tools`
 - Default branch: `main`
-- Social preview: `assets/branding/bootprint-logo-512.png`
+- Social preview: `site/assets/bootprint-social.png`
 - Enable Issues and Discussions; disable the wiki unless maintainers intend to support it.
 
 ## Ruleset for `main`
@@ -23,6 +23,16 @@ This checklist covers settings that cannot be represented completely by committe
 - Add a tag ruleset protecting `v*` from deletion or update.
 
 CodeQL runs weekly or on explicit maintainer request rather than adding another check to every pull request.
+
+## GitHub Pages
+
+In **Settings → Pages**, set the publishing source to **GitHub Actions**. The focused `pages.yml` workflow deploys only the dependency-free files under `site/` when that directory changes or when a maintainer runs it manually.
+
+- Expected URL: `https://theworker02.github.io/bootprint/`
+- Deployment environment: `github-pages`
+- Allow deployments only from `main`.
+- Set the repository website field to the Pages URL after the first successful deployment.
+- Do not add a custom domain or `CNAME` until its DNS ownership is verified.
 
 ## Actions and security
 

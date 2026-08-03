@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b0e14">
+    <meta name="description" content="Bootprint captures sanitized Ruby runtime fingerprints and turns environment drift into actionable diagnoses for local development, CI, Docker, and production.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Bootprint — Reproduce the environment, not just the dependencies">
+    <meta property="og:description" content="Find the invisible runtime differences behind works-on-my-machine failures in Ruby and Rails applications.">
+    <meta property="og:url" content="https://theworker02.github.io/bootprint/">
+    <meta property="og:image" content="https://theworker02.github.io/bootprint/assets/bootprint-social.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bootprint — Ruby environment diagnostics">
+    <meta name="twitter:description" content="Capture, compare, diagnose, and enforce Ruby runtime compatibility.">
+    <meta name="twitter:image" content="https://theworker02.github.io/bootprint/assets/bootprint-social.png">
+    <title>Bootprint — Ruby environment diagnostics</title>
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/bootprint-logo-64.png">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" data-header>
+      <div class="shell header-inner">
+        <a class="brand" href="#top" aria-label="Bootprint home">
+          <img src="assets/bootprint-logo-64.png" width="38" height="38" alt="">
+          <span>Bootprint</span>
+        </a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-nav-toggle>
+          <span class="sr-only">Toggle navigation</span>
+          <span></span><span></span>
+        </button>
+
+        <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation" data-nav>
+          <a href="#workflow">How it works</a>
+          <a href="#diagnosis">Diagnosis</a>
+          <a href="#integrations">Integrations</a>
+          <a href="#security">Security</a>
+          <a href="https://github.com/theworker02/bootprint/tree/main/docs">Docs</a>
+        </nav>
+
+        <div class="header-actions">
+          <button class="icon-button" type="button" aria-label="Switch to light theme" title="Toggle theme" data-theme-toggle>
+            <span aria-hidden="true" data-theme-icon>◐</span>
+          </button>
+          <a class="button button-small button-ghost" href="https://github.com/theworker02/bootprint">GitHub</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="hero-grid shell">
+          <div class="hero-copy reveal">
+            <div class="eyebrow"><span class="status-dot"></span> Bootprint 0.2 is available</div>
+            <h1>Reproduce the environment,<br><span>not just the dependencies.</span></h1>
+            <p class="hero-lede">Bootprint finds the invisible runtime differences behind Ruby failures across local development, CI, Docker, staging, and production—then tells you what matters and how to fix it.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#install">Get started</a>
+              <a class="button button-secondary" href="https://rubygems.org/gems/bootprint">View on RubyGems</a>
+            </div>
+            <div class="install-line" aria-label="Install Bootprint">
+              <code>gem install bootprint</code>
+              <button type="button" data-copy="gem install bootprint" aria-label="Copy gem install command">Copy</button>
+            </div>
+            <div class="distribution-links">
+              <a href="https://rubygems.org/gems/bootprint">RubyGems ↗</a>
+              <a href="https://open-vsx.org/extension/theworker02/bootprint">Open VSX ↗</a>
+              <a href="https://github.com/theworker02/bootprint">Source ↗</a>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal" aria-label="Example Bootprint diagnosis">
+            <div class="fingerprint-halo" aria-hidden="true"></div>
+            <img class="hero-mark" src="assets/bootprint-logo-512.png" width="300" height="300" alt="Bootprint fingerprint logo">
+            <div class="terminal-card">
+              <div class="terminal-bar">
+                <span></span><span></span><span></span>
+                <strong>bootprint diagnose</strong>
+              </div>
+              <div class="terminal-body">
+                <div class="terminal-command"><span>$</span> bootprint diagnose local production</div>
+                <div class="finding finding-critical"><b>CRITICAL</b><span>Native extension platform mismatch</span></div>
+                <p>nokogiri targets <em>arm64-darwin</em><br>but production uses <em>x86_64-linux</em>.</p>
+                <div class="finding finding-error"><b>ERROR</b><span>Required variable missing</span></div>
+                <p><em>REDIS_URL</em> is absent in production.</p>
+                <div class="terminal-summary"><span>2 blocking findings</span><span>142 ms</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="signal-strip" aria-label="Bootprint capabilities">
+        <div class="shell signal-grid">
+          <div><strong>39</strong><span>built-in rules</span></div>
+          <div><strong>4</strong><span>report formats</span></div>
+          <div><strong>0</strong><span>runtime dependencies</span></div>
+          <div><strong>Local</strong><span>no hosted service</span></div>
+        </div>
+      </section>
+
+      <section class="section problem-section" id="workflow">
+        <div class="shell">
+          <div class="section-heading reveal">
+            <p class="kicker">The runtime is part of the application</p>
+            <h2>“Works on my machine” is a difference you haven’t measured yet.</h2>
+            <p>A lockfile records dependencies. Bootprint records the runtime contract around them: Ruby, native clients, operating system, filesystem behavior, Rails configuration, and presence-only environment metadata.</p>
+          </div>
+
+          <ol class="workflow-grid">
+            <li class="workflow-card reveal">
+              <span>01</span><h3>Capture</h3>
+              <p>Create a sanitized, deterministic snapshot in under a second for ordinary Ruby projects.</p>
+              <code>bootprint capture local</code>
+            </li>
+            <li class="workflow-card reveal">
+              <span>02</span><h3>Compare</h3>
+              <p>See exactly what changed between local, CI, Docker, staging, or production.</p>
+              <code>bootprint diff local ci</code>
+            </li>
+            <li class="workflow-card reveal">
+              <span>03</span><h3>Diagnose</h3>
+              <p>Turn raw drift into severity, evidence, impact, likely cause, and remediation.</p>
+              <code>bootprint diagnose local ci</code>
+            </li>
+            <li class="workflow-card reveal">
+              <span>04</span><h3>Enforce</h3>
+              <p>Apply project policy with stable exit codes and machine-readable CI reports.</p>
+              <code>bootprint ci verify</code>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section diagnosis-section" id="diagnosis">
+        <div class="shell diagnosis-layout">
+          <div class="diagnosis-copy reveal">
+            <p class="kicker">Actionable by design</p>
+            <h2>Not a diagnostic dump. A decision.</h2>
+            <p>Each rule answers what changed, whether it is dangerous, why it matters, and what to do next. Policy controls which findings block a build.</p>
+            <ul class="check-list">
+              <li>Severity from info to critical</li>
+              <li>Structured evidence and remediation</li>
+              <li>Rule suppression and severity overrides</li>
+              <li>Human, JSON, SARIF, and Markdown reports</li>
+            </ul>
+            <a class="text-link" href="https://github.com/theworker02/bootprint/blob/main/docs/findings.md">Understand findings <span>→</span></a>
+          </div>
+
+          <div class="diagnostic-panel reveal">
+            <div class="panel-tabs" role="tablist" aria-label="Example diagnostic findings">
+              <button role="tab" aria-selected="true" data-tab="runtime">Runtime</button>
+              <button role="tab" aria-selected="false" data-tab="native">Native</button>
+              <button role="tab" aria-selected="false" data-tab="rails">Rails</button>
+            </div>
+            <div class="diagnostic-content" data-tab-panel>
+              <div class="severity-label warning">WARNING</div>
+              <h3>Ruby patch-level drift</h3>
+              <p>Source uses Ruby 3.4.2 while the target uses 3.4.1. Behavior and bundled library fixes can differ.</p>
+              <dl>
+                <div><dt>Source</dt><dd>ruby 3.4.2</dd></div>
+                <div><dt>Target</dt><dd>ruby 3.4.1</dd></div>
+              </dl>
+              <div class="remediation">
+                <span>Recommended fix</span>
+                <code>Pin one Ruby version in .ruby-version and CI.</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section inspect-section">
+        <div class="shell">
+          <div class="section-heading compact reveal">
+            <p class="kicker">One fingerprint, the relevant facts</p>
+            <h2>Inspect the layers that actually break Ruby applications.</h2>
+          </div>
+          <div class="inspect-grid">
+            <article class="inspect-item reveal"><span>RB</span><h3>Ruby runtime</h3><p>Version, engine, patch level, platform, architecture, and build mode.</p></article>
+            <article class="inspect-item reveal"><span>GM</span><h3>Dependencies</h3><p>Bundler, RubyGems, lockfile platforms, resolved gems, sources, and native extensions.</p></article>
+            <article class="inspect-item reveal"><span>NL</span><h3>Native libraries</h3><p>OpenSSL, libyaml, SQLite, PostgreSQL, MySQL, libc, compilers, and headers.</p></article>
+            <article class="inspect-item reveal"><span>CF</span><h3>Configuration</h3><p>Presence-only environment metadata, adapters, framework settings, and deployment drift.</p></article>
+            <article class="inspect-item reveal"><span>FS</span><h3>Filesystem</h3><p>Writability, temporary paths, case sensitivity, path separators, and symlink behavior.</p></article>
+            <article class="inspect-item reveal"><span>RL</span><h3>Rails boot</h3><p>Framework settings, eager loading, adapters, paths, initializers, and opt-in profiling.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section integration-section" id="integrations">
+        <div class="shell integration-layout">
+          <div class="section-heading compact reveal">
+            <p class="kicker">Fits the places drift happens</p>
+            <h2>Ruby, Rails, containers, editors, and CI.</h2>
+            <p>The same diagnosis engine works locally and in automation. Optional integrations stay lazy-loaded so the core CLI remains fast.</p>
+          </div>
+          <div class="integration-stack">
+            <a class="integration-row reveal" href="https://github.com/theworker02/bootprint/blob/main/docs/rails.md"><span class="integration-index">01</span><div><h3>Rails inspection</h3><p>Framework defaults, adapters, paths, initializers, and boot profiling.</p></div><b>→</b></a>
+            <a class="integration-row reveal" href="https://github.com/theworker02/bootprint/blob/main/docs/docker.md"><span class="integration-index">02</span><div><h3>Docker comparison</h3><p>Inspect an image without exposing a port or touching unrelated containers.</p></div><b>→</b></a>
+            <a class="integration-row reveal" href="https://open-vsx.org/extension/theworker02/bootprint"><span class="integration-index">03</span><div><h3>Open VSX extension</h3><p>Capture, diagnose, verify, and run doctor from compatible editors.</p></div><b>→</b></a>
+            <a class="integration-row reveal" href="https://github.com/theworker02/bootprint/blob/main/docs/ci.md"><span class="integration-index">04</span><div><h3>CI enforcement</h3><p>GitHub annotations, SARIF, stable exit codes, and policy-aware builds.</p></div><b>→</b></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section security-section" id="security">
+        <div class="shell security-layout">
+          <div class="security-mark reveal" aria-hidden="true">
+            <img src="assets/bootprint-logo-512.png" alt="" width="220" height="220">
+          </div>
+          <div class="security-copy reveal">
+            <p class="kicker">Sensitive operation, conservative defaults</p>
+            <h2>Useful fingerprints without leaking the application.</h2>
+            <p>Bootprint captures environment-variable names and presence—never their values. Recursive redaction strips credential-bearing URLs, tokens, private keys, authorization headers, and identifying paths.</p>
+            <div class="security-points">
+              <span>No telemetry</span><span>No upload service</span><span>No network during capture</span><span>Strict privacy mode</span>
+            </div>
+            <code>bootprint security audit bootprint.lock</code>
+          </div>
+        </div>
+      </section>
+
+      <section class="section install-section" id="install">
+        <div class="shell install-card reveal">
+          <div>
+            <p class="kicker">Start with one snapshot</p>
+            <h2>Make the environment reproducible.</h2>
+            <p>Install Bootprint, capture local, and commit the sanitized runtime contract your deployments should match.</p>
+          </div>
+          <div class="install-commands">
+            <div><span>1</span><code>gem install bootprint</code><button data-copy="gem install bootprint" aria-label="Copy install command">Copy</button></div>
+            <div><span>2</span><code>bootprint capture local</code><button data-copy="bootprint capture local" aria-label="Copy capture command">Copy</button></div>
+            <div><span>3</span><code>bootprint doctor</code><button data-copy="bootprint doctor" aria-label="Copy doctor command">Copy</button></div>
+          </div>
+          <div class="install-actions">
+            <a class="button button-primary" href="https://github.com/theworker02/bootprint/blob/main/docs/quick-start.md">Read the quick start</a>
+            <a class="button button-secondary" href="https://open-vsx.org/extension/theworker02/bootprint">Install from Open VSX</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-grid">
+        <div class="footer-brand">
+          <img src="assets/bootprint-logo-64.png" width="34" height="34" alt="">
+          <div><strong>Bootprint</strong><span>Reproduce the environment.</span></div>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/theworker02/bootprint">GitHub</a>
+          <a href="https://rubygems.org/gems/bootprint">RubyGems</a>
+          <a href="https://open-vsx.org/extension/theworker02/bootprint">Open VSX</a>
+          <a href="https://github.com/theworker02/bootprint/blob/main/SECURITY.md">Security</a>
+          <a href="https://github.com/theworker02/bootprint/blob/main/LICENSE">MIT License</a>
+        </div>
+      </div>
+      <div class="shell footer-bottom"><span>Built for Ruby applications that behave differently somewhere else.</span><span>© 2026 Bootprint</span></div>
+    </footer>
+  </body>
+</html>

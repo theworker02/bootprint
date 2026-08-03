@@ -3,6 +3,8 @@
 require_relative "lib/bootprint/version"
 
 Gem::Specification.new do |spec|
+  repository_url = "https://github.com/theworker02/bootprint"
+
   spec.name = "bootprint"
   spec.version = Bootprint::VERSION
   spec.authors = ["Magnexis"]
@@ -13,7 +15,7 @@ Gem::Specification.new do |spec|
     "diagnoses dangerous environment drift, and provides policy-aware",
     "remediation for CI, Docker, staging, and production."
   ].join(" ")
-  spec.homepage = "https://github.com/theworker02/bootprint"
+  spec.homepage = "https://theworker02.github.io/bootprint/"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.1"
   spec.required_rubygems_version = ">= 3.3.0"
@@ -38,11 +40,11 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.metadata = {
-    "source_code_uri" => "#{spec.homepage}/tree/main",
+    "source_code_uri" => "#{repository_url}/tree/main",
     "homepage_uri" => spec.homepage,
-    "documentation_uri" => "#{spec.homepage}/tree/main/docs",
-    "changelog_uri" => "#{spec.homepage}/blob/main/CHANGELOG.md",
-    "bug_tracker_uri" => "#{spec.homepage}/issues",
+    "documentation_uri" => "#{repository_url}/tree/main/docs",
+    "changelog_uri" => "#{repository_url}/blob/main/CHANGELOG.md",
+    "bug_tracker_uri" => "#{repository_url}/issues",
     "funding_uri" => "https://github.com/sponsors/theworker02",
     "allowed_push_host" => "https://rubygems.org",
     "rubygems_mfa_required" => "true"

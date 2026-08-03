@@ -8,6 +8,7 @@ All notable changes to Bootprint are documented here. The project follows Semant
 
 - A versioned Open VSX extension package (`theworker02.bootprint`) with capture, diagnose, doctor, verify, installation-check, streamed-output, workspace-trust, and configurable Bundler support.
 - A manual-only, protected Open VSX packaging and publishing workflow using the pinned `ovsx` CLI.
+- A responsive, dependency-free GitHub Pages product site with the Bootprint brand, live distribution links, accessible interactions, and a dedicated social preview.
 
 ## 0.2.0 - 2026-08-02
 
