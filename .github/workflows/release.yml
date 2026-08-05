@@ -96,15 +96,9 @@ jobs:
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Configure RubyGems trusted publishing
+      - name: Publish to RubyGems
         if: steps.published.outputs.exists != 'true'
-        uses: rubygems/configure-rubygems-credentials@v2.1.0
-
-      - name: Publish gem
-        if: steps.published.outputs.exists != 'true'
-        env:
-          RELEASE_VERSION: ${{ steps.release.outputs.version }}
-        run: gem push "pkg/bootprint-${RELEASE_VERSION}.gem"
+        uses: rubygems/release-gem@v1
 
       - name: Create or refresh GitHub release
         env:
