@@ -31,7 +31,7 @@ module Bootprint
     def entries
       @entries ||= begin
         flattened = snapshots.transform_values { |data| flatten(data) }
-        paths = flattened.values.flat_map(&:keys).uniq.sort
+        paths = flattened.values.flat_map(&:keys).uniq.sort.reject { |path| ignored?(path) }
         paths.filter_map do |path|
           values = {}
           missing = []
@@ -85,6 +85,10 @@ module Bootprint
         output[prefix] = value
       end
       output
+    end
+
+    def ignored?(path)
+      Diff::IGNORED_PATHS.include?(path) || path == "capture" || path.start_with?("capture.")
     end
 
     def consensus_value(values, total)
