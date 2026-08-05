@@ -8,6 +8,7 @@ require_relative "bootprint/schema"
 require_relative "bootprint/plugins"
 require_relative "bootprint/snapshot"
 require_relative "bootprint/diff"
+require_relative "bootprint/matrix"
 require_relative "bootprint/doctor"
 require_relative "bootprint/policy"
 
@@ -27,6 +28,11 @@ module Bootprint
 
     def capture(label: nil, **options)
       Snapshot.capture(label:, **options)
+    end
+
+    # Compares named snapshots and identifies consensus values and outliers.
+    def matrix(snapshots)
+      Matrix.new(snapshots)
     end
   end
 end
