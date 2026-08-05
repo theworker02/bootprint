@@ -10,6 +10,22 @@ All notable changes to Bootprint are documented here. The project follows Semant
 - A manual-only, protected Open VSX packaging and publishing workflow using the pinned `ovsx` CLI.
 - A responsive, dependency-free GitHub Pages product site with the Bootprint brand, live distribution links, accessible interactions, and a dedicated social preview.
 
+## 0.3.0 - 2026-08-04
+
+### Added
+
+- `Bootprint::Matrix` for comparing two or more named snapshots at once.
+- Majority-based consensus values for multi-environment drift analysis.
+- Deterministic outlier identification and per-environment outlier counts.
+- Missing-value reporting for incomplete staging, CI, container, or production fingerprints.
+- `Bootprint.matrix` as the public convenience API.
+- Stable matrix JSON through `Matrix#to_h`.
+
+### Compatibility
+
+- Existing capture, diff, diagnosis, policy, report, CLI, Rails, and plugin APIs are unchanged.
+- Generated timestamps, environment labels, and capture metadata remain excluded from semantic comparisons.
+
 ## 0.2.0 - 2026-08-02
 
 ### Added
