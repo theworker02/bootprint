@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Bootprint
-  # Compares three or more snapshots to find consensus values and outlier environments.
+  # Compares two or more snapshots to find consensus values and outlier environments.
   class Matrix
     Entry = Struct.new(:path, :values, :missing, :consensus, :outliers, keyword_init: true) do
       def consensus?
@@ -76,10 +76,10 @@ module Bootprint
 
     def flatten(value, prefix = nil, output = {})
       if value.is_a?(Hash)
-        value.keys.map(&:to_s).sort.each do |key|
-          child = value[key] || value[key.to_sym]
+        value.keys.sort_by(&:to_s).each do |original_key|
+          key = original_key.to_s
           path = [prefix, key].compact.join(".")
-          flatten(child, path, output)
+          flatten(value.fetch(original_key), path, output)
         end
       else
         output[prefix] = value
