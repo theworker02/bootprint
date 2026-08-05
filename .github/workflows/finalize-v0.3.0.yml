@@ -27,7 +27,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p .release-status
-          printf '{"version":"0.3.0","validator":"started"}\n' > .release-status/v0.3.0-started.json
+          printf '{"version":"0.3.0","validator":"started","run_id":"%s"}\n' "$GITHUB_RUN_ID" > .release-status/v0.3.0-started.json
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .release-status/v0.3.0-started.json
@@ -36,12 +36,16 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.4"
-          bundler-cache: true
-      - name: Validate and record diagnostics
+      - name: Install, validate, and record diagnostics
         shell: bash
         run: |
           set +e
           {
+            echo '$ gem install bundler'
+            gem install bundler --no-document
+            echo '$ bundle install'
+            bundle config set path vendor/bundle
+            bundle install --jobs 4 --retry 3
             echo '$ bundle exec rake check'
             bundle exec rake check
             echo '$ gem build bootprint.gemspec'
@@ -74,7 +78,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           rm -f .github/workflows/finalize-v0.3.0.yml .release-trigger/0.3.0 .release-status/v0.3.0-failure.txt .release-status/v0.3.0-started.json
-          rm -rf pkg tmp/release-gem tmp/release-bin
+          rm -rf pkg tmp/release-gem tmp/release-bin vendor/bundle .bundle
           git add -A
           git commit -m "Prepare Bootprint 0.3.0 release"
           git push origin HEAD:main
