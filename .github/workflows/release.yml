@@ -4,6 +4,11 @@ on:
   push:
     tags:
       - "v*"
+    branches:
+      - main
+    paths:
+      - ".release-trigger/0.3.0"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -12,48 +17,81 @@ jobs:
   release:
     name: Publish ${{ github.ref_name }}
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     environment: release
     permissions:
       contents: write
       id-token: write
     steps:
-      - name: Check out tagged source
+      - name: Check out source
         uses: actions/checkout@v6
         with:
-          persist-credentials: false
+          fetch-depth: 0
+          persist-credentials: true
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.4"
           bundler-cache: true
+      - name: Resolve release version
+        id: release
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+            TAG="$GITHUB_REF_NAME"
+          else
+            TAG="v0.3.0"
+          fi
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"
       - name: Verify tag, gem version, and changelog
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+          RELEASE_VERSION: ${{ steps.release.outputs.version }}
         run: |
-          VERSION="${RELEASE_TAG#v}"
           bundle exec ruby -Ilib -e 'require "bootprint/version"; abort "tag/version mismatch" unless "v#{Bootprint::VERSION}" == ENV.fetch("RELEASE_TAG")'
-          grep -F "## ${VERSION} -" CHANGELOG.md
+          grep -F "## ${RELEASE_VERSION} -" CHANGELOG.md
       - name: Run release checks
         run: bundle exec rake check
       - name: Build and smoke-test the exact package
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_VERSION: ${{ steps.release.outputs.version }}
         run: |
-          VERSION="${RELEASE_TAG#v}"
           mkdir -p pkg
-          gem build bootprint.gemspec --output "pkg/bootprint-${VERSION}.gem"
-          gem install "pkg/bootprint-${VERSION}.gem" --install-dir tmp/gem-home --bindir tmp/gem-bin --no-document
+          gem build bootprint.gemspec --output "pkg/bootprint-${RELEASE_VERSION}.gem"
+          gem install "pkg/bootprint-${RELEASE_VERSION}.gem" --install-dir tmp/gem-home --bindir tmp/gem-bin --no-document
           GEM_HOME="$PWD/tmp/gem-home" GEM_PATH="$PWD/tmp/gem-home" tmp/gem-bin/bootprint --version
           GEM_HOME="$PWD/tmp/gem-home" GEM_PATH="$PWD/tmp/gem-home" tmp/gem-bin/bootprint help
+          GEM_HOME="$PWD/tmp/gem-home" GEM_PATH="$PWD/tmp/gem-home" ruby -e 'require "bootprint"; abort unless Bootprint.respond_to?(:matrix)'
       - name: Record package digest
         run: |
           ruby -rdigest -e "paths = Dir['pkg/*.gem']; abort 'expected one package' unless paths.one?; puts 'SHA256  ' + Digest::SHA256.file(paths.first).hexdigest"
+      - name: Finalize semantic tag
+        if: github.ref_type != 'tag'
+        env:
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -f .release-trigger/0.3.0
+          git add -A
+          git commit -m "Prepare Bootprint 0.3.0 release"
+          git push origin HEAD:main
+          if ! git ls-remote --exit-code --tags origin "refs/tags/${RELEASE_TAG}" >/dev/null 2>&1; then
+            git tag -a "$RELEASE_TAG" -m "Bootprint 0.3.0"
+            git push origin "$RELEASE_TAG"
+          fi
       - name: Publish to RubyGems with trusted publishing
         uses: rubygems/release-gem@v1
-      - name: Create GitHub release
+      - name: Create or refresh GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
         run: |
-          gh release create "$RELEASE_TAG" pkg/*.gem --verify-tag --generate-notes --title "Bootprint ${RELEASE_TAG#v}"
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" pkg/*.gem --clobber
+          else
+            gh release create "$RELEASE_TAG" pkg/*.gem --verify-tag --generate-notes --title "Bootprint ${RELEASE_TAG#v}"
+          fi
