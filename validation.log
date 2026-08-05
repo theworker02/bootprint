@@ -1,0 +1,154 @@
+$ gem install bundler
+Successfully installed bundler-4.0.17
+1 gem installed
+$ bundle install
+Fetching gem metadata from https://rubygems.org/..........
+Resolving dependencies...
+Fetching rake 13.4.2
+Installing rake 13.4.2
+Fetching ast 2.4.3
+Fetching json 2.21.2
+Fetching language_server-protocol 3.17.0.6
+Fetching lint_roller 1.1.0
+Fetching minitest 5.25.4
+Fetching parallel 1.28.0
+Installing json 2.21.2 with native extensions
+Fetching racc 1.8.1
+Fetching parser 3.3.12.0
+Fetching prism 1.9.0
+Fetching rainbow 3.1.1
+Installing racc 1.8.1 with native extensions
+Fetching regexp_parser 2.12.0
+Installing prism 1.9.0 with native extensions
+Fetching rubocop-ast 1.50.0
+Fetching ruby-progressbar 1.13.0
+Fetching unicode-emoji 4.2.0
+Fetching unicode-display_width 3.2.0
+Fetching rubocop 1.75.8
+Using bootprint 0.3.0 (was 0.2.0) from gemspec at `.` and installing its executables
+Installing ast 2.4.3
+Installing lint_roller 1.1.0
+Installing language_server-protocol 3.17.0.6
+Installing minitest 5.25.4
+Installing parallel 1.28.0
+Installing rainbow 3.1.1
+Installing parser 3.3.12.0
+Installing regexp_parser 2.12.0
+Installing rubocop-ast 1.50.0
+Installing ruby-progressbar 1.13.0
+Installing unicode-emoji 4.2.0
+Installing unicode-display_width 3.2.0
+Installing rubocop 1.75.8
+Bundle complete! 4 Gemfile dependencies, 18 gems now installed.
+Bundled gems are installed into `./vendor/bundle`
+1 installed gem you directly depend on is looking for funding.
+  Run `bundle fund` for details
+$ bundle exec rake check
+Run options: --seed 58885
+
+# Running:
+
+............................................................
+
+Finished in 3.089863s, 19.4183 runs/s, 206.1580 assertions/s.
+
+60 runs, 637 assertions, 0 failures, 0 errors, 0 skips
+RuboCop failed!
+Running RuboCop...
+Inspecting 58 files
+.......................W..................C...............
+
+Offenses:
+
+lib/bootprint/matrix.rb:6:31: W: Lint/StructNewOverride: :values member overrides Struct#values and it may be unexpected.
+    Entry = Struct.new(:path, :values, :missing, :consensus, :outliers, keyword_init: true) do
+                              ^^^^^^^
+test/matrix_test.rb:7:39: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside { missing.
+    local = snapshot("environment" => {"name" => "local", "runtime" => {"ruby_version" => "3.3.8"}})
+                                      ^
+test/matrix_test.rb:7:72: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside { missing.
+    local = snapshot("environment" => {"name" => "local", "runtime" => {"ruby_version" => "3.3.8"}})
+                                                                       ^
+test/matrix_test.rb:7:98: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside } missing.
+    local = snapshot("environment" => {"name" => "local", "runtime" => {"ruby_version" => "3.3.8"}})
+                                                                                                 ^
+test/matrix_test.rb:7:99: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside } missing.
+    local = snapshot("environment" => {"name" => "local", "runtime" => {"ruby_version" => "3.3.8"}})
+                                                                                                  ^
+test/matrix_test.rb:8:41: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside { missing.
+    staging = snapshot("environment" => {"name" => "staging", "runtime" => {"ruby_version" => "3.4.2"}})
+                                        ^
+test/matrix_test.rb:8:76: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside { missing.
+    staging = snapshot("environment" => {"name" => "staging", "runtime" => {"ruby_version" => "3.4.2"}})
+                                                                           ^
+test/matrix_test.rb:8:102: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside } missing.
+    staging = snapshot("environment" => {"name" => "staging", "runtime" => {"ruby_version" => "3.4.2"}})
+                                                                                                     ^
+test/matrix_test.rb:8:103: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside } missing.
+    staging = snapshot("environment" => {"name" => "staging", "runtime" => {"ruby_version" => "3.4.2"}})
+                                                                                                      ^
+test/matrix_test.rb:9:44: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside { missing.
+    production = snapshot("environment" => {"name" => "production", "runtime" => {"ruby_version" => "3.4.2"}})
+                                           ^
+test/matrix_test.rb:9:82: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside { missing.
+    production = snapshot("environment" => {"name" => "production", "runtime" => {"ruby_version" => "3.4.2"}})
+                                                                                 ^
+test/matrix_test.rb:9:108: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside } missing.
+    production = snapshot("environment" => {"name" => "production", "runtime" => {"ruby_version" => "3.4.2"}})
+                                                                                                           ^
+test/matrix_test.rb:9:109: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside } missing.
+    production = snapshot("environment" => {"name" => "production", "runtime" => {"ruby_version" => "3.4.2"}})
+                                                                                                            ^
+test/matrix_test.rb:23:16: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside { missing.
+      "one" => {"runtime" => {"jit" => "yjit"}},
+               ^
+test/matrix_test.rb:23:30: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside { missing.
+      "one" => {"runtime" => {"jit" => "yjit"}},
+                             ^
+test/matrix_test.rb:23:46: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside } missing.
+      "one" => {"runtime" => {"jit" => "yjit"}},
+                                             ^
+test/matrix_test.rb:23:47: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside } missing.
+      "one" => {"runtime" => {"jit" => "yjit"}},
+                                              ^
+test/matrix_test.rb:24:16: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside { missing.
+      "two" => {"runtime" => {}},
+               ^
+test/matrix_test.rb:24:32: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside } missing.
+      "two" => {"runtime" => {}},
+                               ^
+test/matrix_test.rb:25:18: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside { missing.
+      "three" => {"runtime" => {"jit" => "yjit"}}
+                 ^
+test/matrix_test.rb:25:32: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside { missing.
+      "three" => {"runtime" => {"jit" => "yjit"}}
+                               ^
+test/matrix_test.rb:25:48: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside } missing.
+      "three" => {"runtime" => {"jit" => "yjit"}}
+                                               ^
+test/matrix_test.rb:25:49: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside } missing.
+      "three" => {"runtime" => {"jit" => "yjit"}}
+                                                ^
+test/matrix_test.rb:41:38: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside { missing.
+    left = snapshot("environment" => {"name" => "left"})
+                                     ^
+test/matrix_test.rb:41:55: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside } missing.
+    left = snapshot("environment" => {"name" => "left"})
+                                                      ^
+test/matrix_test.rb:42:39: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside { missing.
+    right = snapshot("environment" => {"name" => "right"})
+                                      ^
+test/matrix_test.rb:42:57: C: [Correctable] Layout/SpaceInsideHashLiteralBraces: Space inside } missing.
+    right = snapshot("environment" => {"name" => "right"})
+                                                        ^
+
+58 files inspected, 27 offenses detected, 26 offenses autocorrectable
+$ gem build bootprint.gemspec
+  Successfully built RubyGem
+  Name: bootprint
+  Version: 0.3.0
+  File: bootprint-0.3.0.gem
+$ installed gem smoke test
+Successfully installed bootprint-0.3.0
+1 gem installed
+bootprint 0.3.0
