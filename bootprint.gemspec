@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.required_rubygems_version = ">= 3.3.0"
 
   spec.files = Dir[
-    "{lib,exe}/**/*",
+    "{lib,exe,data}/**/*",
     "assets/branding/{README.md,bootprint-logo.png,bootprint-logo-512.png,bootprint-logo-128.png,bootprint-logo-64.png}",
     "docs/**/*.md",
     "README.md",
