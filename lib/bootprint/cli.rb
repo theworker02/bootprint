@@ -37,6 +37,7 @@ module Bootprint
       when "docker" then docker_command
       when "ci" then ci_command
       when "security" then security_command
+      when "advisories" then advisories_command
       when "version", "--version", "-v" then version
       when "help", "--help", "-h", nil then help(EXIT_OK)
       else
@@ -294,6 +295,34 @@ module Bootprint
       issues.empty? ? EXIT_OK : EXIT_POLICY
     end
 
+    def advisories_command
+      options = { format: "human", bundle: Bootprint::Advisories::DEFAULT_BUNDLE }
+      parser = OptionParser.new do |opts|
+        opts.banner = "Usage: bootprint advisories SNAPSHOT [--bundle PATH] [--format human|json]"
+        opts.on("--bundle PATH", "Offline advisory bundle JSON") { |value| options[:bundle] = value }
+        opts.on("--format FORMAT", %w[human json]) { |value| options[:format] = value }
+      end
+      return EXIT_OK unless parse_options(parser)
+
+      reference = @argv.shift or raise OptionParser::MissingArgument, "SNAPSHOT is required"
+      reject_extra_arguments!
+      snapshot = load_snapshot(reference)
+      bundle = Bootprint::Advisories.load(options[:bundle])
+      matches = bundle.matches(snapshot)
+      if options[:format] == "json"
+        @out.puts JSON.pretty_generate(bundle.to_h(snapshot))
+      elsif matches.empty?
+        @out.puts "Advisory check passed: no known vulnerabilities in bundled advisories."
+      else
+        @out.puts "Advisory check found #{matches.length} affected gem(s):"
+        matches.each do |match|
+          advisory = match.advisory
+          @out.puts "#{advisory.severity.to_s.upcase} #{match.gem} #{match.version}: #{advisory.title} (#{advisory.id})"
+        end
+      end
+      matches.empty? ? EXIT_OK : EXIT_POLICY
+    end
+
     def report_options
       { format: "human", allows: [], policy: default_policy_path, only: nil, minimum: nil }
     end
@@ -449,6 +478,7 @@ module Bootprint
           docker COMMAND          Capture, compare, or diagnose a local Docker image
           ci verify               Verify with CI-native annotations
           security audit          Audit a snapshot for sensitive data
+          advisories SNAPSHOT     Match gems against offline advisories
 
         Run `bootprint COMMAND --help` for command-specific options.
       HELP

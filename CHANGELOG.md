@@ -4,11 +4,14 @@ All notable changes to Bootprint are documented here. The project follows Semant
 
 ## Unreleased
 
+## 0.4.0 - 2026-08-11
+
 ### Added
 
-- A versioned Open VSX extension package (`theworker02.bootprint`) with capture, diagnose, doctor, verify, installation-check, streamed-output, workspace-trust, and configurable Bundler support.
-- A manual-only, protected Open VSX packaging and publishing workflow using the pinned `ovsx` CLI.
-- A responsive, dependency-free GitHub Pages product site with the Bootprint brand, live distribution links, accessible interactions, and a dedicated social preview.
+- `Bootprint::Advisories` for matching snapshot gem versions against offline JSON advisory bundles.
+- `Bootprint.advisories` and `Bootprint.advise` convenience APIs.
+- `bootprint advisories SNAPSHOT` CLI command with `--bundle` and `--format human|json` options.
+- Sample empty advisory bundle schema at `data/advisories/schema/empty.json`.
 
 ## 0.3.0 - 2026-08-04
 

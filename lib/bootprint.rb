@@ -9,6 +9,7 @@ require_relative "bootprint/plugins"
 require_relative "bootprint/snapshot"
 require_relative "bootprint/diff"
 require_relative "bootprint/matrix"
+require_relative "bootprint/advisories"
 require_relative "bootprint/doctor"
 require_relative "bootprint/policy"
 
@@ -33,6 +34,14 @@ module Bootprint
     # Compares named snapshots and identifies consensus values and outliers.
     def matrix(snapshots)
       Matrix.new(snapshots)
+    end
+
+    def advisories(snapshot, bundle: Advisories::DEFAULT_BUNDLE)
+      Advisories.advisories(bundle).matches(snapshot)
+    end
+
+    def advise(snapshot, bundle: Advisories::DEFAULT_BUNDLE)
+      advisories(snapshot, bundle:)
     end
   end
 end
