@@ -3,7 +3,8 @@
 module Bootprint
   # Compares two or more snapshots to find consensus values and outlier environments.
   class Matrix
-    Entry = Struct.new(:path, :values, :missing, :consensus, :outliers, keyword_init: true) do
+    # :values is the matrix cell payload; the name mirrors the JSON "values" key.
+    Entry = Struct.new(:path, :values, :missing, :consensus, :outliers, keyword_init: true) do # rubocop:disable Lint/StructNewOverride
       def consensus?
         !consensus.nil?
       end
