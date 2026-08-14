@@ -4,6 +4,13 @@ All notable changes to Bootprint are documented here. The project follows Semant
 
 ## Unreleased
 
+## 0.5.0 - 2026-08-14
+
+### Added
+
+- Capture timezone, default encodings, and locale metadata on the operating-system fingerprint.
+- Built-in rules `timezone-drift`, `encoding-drift`, and `locale-drift` for those fields.
+
 ## 0.4.0 - 2026-08-11
 
 ### Added

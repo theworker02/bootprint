@@ -56,7 +56,7 @@ Bootprint 0.2 combines a dependency compatibility analyzer, Rails boot inspector
 
 `Gemfile.lock` captures dependency resolution, but not the complete runtime contract. Ruby engine and patch level, native clients, libc, CPU architecture, Rails adapters, required configuration, filesystem behavior, and initializer ordering can all change application behavior.
 
-Bootprint records those facts as deterministic schema-v2 JSON and evaluates them with 39 independently testable built-in rules. A finding answers four questions that a plain diff cannot:
+Bootprint records those facts as deterministic schema-v2 JSON and evaluates them with 42 independently testable built-in rules. A finding answers four questions that a plain diff cannot:
 
 1. What changed?
 2. How dangerous is it?
@@ -79,7 +79,7 @@ ERROR      Required environment variable is missing
 
 | Capability | Bootprint 0.2 |
 |---|---|
-| Diagnostic knowledge | 39 built-in rules across runtime, dependencies, native libraries, configuration, filesystem, and Rails boot |
+| Diagnostic knowledge | 42 built-in rules across runtime, dependencies, native libraries, configuration, filesystem, locale, and Rails boot |
 | Severity model | `info`, `warning`, `error`, `critical` |
 | Report formats | Human terminal output, JSON, SARIF 2.1, Markdown |
 | Snapshot contract | Deterministic schema v2 with in-memory v1 migration |
@@ -97,6 +97,7 @@ ERROR      Required environment variable is missing
 | Native libraries | OpenSSL, libyaml, SQLite, PostgreSQL, MySQL, libc, compiler and header availability when detectable |
 | Configuration | Environment-variable names and presence, Rails environment, adapters, framework settings |
 | Filesystem | Temporary/log path availability, writability, path separators, case sensitivity, symlink behavior |
+| Locale | Timezone name and UTC offset, default internal/external encodings, LANG / LC_ALL / charmap |
 | Rails boot | Framework configuration, autoload/eager-load paths, initializers, and opt-in initializer timings |
 | Docker | Image runtime, platforms, installed package metadata when available, workdir, entrypoint, command, permissions |
 
