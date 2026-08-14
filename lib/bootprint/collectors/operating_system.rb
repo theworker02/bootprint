@@ -19,7 +19,10 @@ module Bootprint
           "processors" => Etc.nprocessors,
           "capabilities" => TOOLS.to_h { |tool| [tool, executable?(tool)] },
           "ruby_headers" => header_state,
-          "ci" => ci_provider
+          "ci" => ci_provider,
+          "timezone" => timezone_state,
+          "encoding" => encoding_state,
+          "locale" => locale_state
         }
       end
 
@@ -44,6 +47,30 @@ module Bootprint
         return "generic" if ENV.key?("CI")
 
         nil
+      end
+
+      def timezone_state
+        now = Time.now
+        {
+          "name" => now.zone,
+          "utc_offset" => now.utc_offset,
+          "tz" => ENV.fetch("TZ", nil)
+        }
+      end
+
+      def encoding_state
+        {
+          "external" => Encoding.default_external.name,
+          "internal" => Encoding.default_internal&.name
+        }
+      end
+
+      def locale_state
+        {
+          "lang" => ENV.fetch("LANG", nil),
+          "lc_all" => ENV.fetch("LC_ALL", nil),
+          "charmap" => Encoding.locale_charmap
+        }
       end
     end
   end

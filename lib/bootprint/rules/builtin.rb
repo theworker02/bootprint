@@ -58,6 +58,24 @@ module Bootprint
              fix: "Use a standard release build for production.") do |_source, target|
           dig(target, "runtime.debug_build") == true && { "description" => dig(target, "runtime.description") }
         end
+        rule("timezone-drift", "Timezone mismatch", :runtime, :warning,
+             cause: "The environments select different timezones.",
+             impact: "Time.now, cron, and timestamp formatting can disagree across machines.",
+             fix: "Set TZ consistently in local, container, and CI environments.") do |source, target|
+          difference(source, target, "operating_system.timezone")
+        end
+        rule("encoding-drift", "Default encoding mismatch", :runtime, :warning,
+             cause: "Ruby default encodings differ between environments.",
+             impact: "String transcoding, file IO, and JSON payloads can fail only in one environment.",
+             fix: "Align Encoding.default_external (and LANG/LC_ALL) with the deployment runtime.") do |source, target|
+          difference(source, target, "operating_system.encoding")
+        end
+        rule("locale-drift", "Locale mismatch", :runtime, :info,
+             cause: "LANG / LC_ALL / locale charmap differ between environments.",
+             impact: "Sort order, number formatting, and encoding defaults can change.",
+             fix: "Export the same LANG and LC_ALL in every environment.") do |source, target|
+          difference(source, target, "operating_system.locale")
+        end
       end
 
       def dependency_rules
