@@ -1,4 +1,4 @@
-<p align="center">
+﻿<p align="center">
   <img src="assets/branding/bootprint-logo-512.png" alt="Bootprint fingerprint and environment-drift logo" width="180">
 </p>
 
@@ -13,7 +13,7 @@
   <a href="https://theworker02.github.io/bootprint/"><img alt="Bootprint website" src="https://img.shields.io/badge/website-GitHub%20Pages-3977F6?logo=githubpages&logoColor=white"></a>
   <img alt="Ruby 3.1 or newer" src="https://img.shields.io/badge/Ruby-%E2%89%A5%203.1-CC342D?logo=ruby&logoColor=white">
   <img alt="Snapshot schema version 2" src="https://img.shields.io/badge/snapshot_schema-v2-3977F6">
-  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-171A21"></a>
+  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-Proprietary%20(source--available)-171A21"></a>
 </p>
 
 Bootprint is a local-first Ruby runtime fingerprint and compatibility diagnostic. It captures a sanitized description of an application environment, compares that description with CI, Docker, staging, or production, and turns raw drift into explanations, severity, evidence, remediation, and enforceable policy.
@@ -460,3 +460,7 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow, [ARCHITECT
 Bootprint 0.2 is local-first and pre-1.0. It diagnoses captured facts; it does not guarantee perfect binary compatibility, query remote gem indexes during capture, execute suggested repairs, or provide malware isolation. Yanked-gem detection uses metadata supplied by snapshots or trusted plugins because standard capture deliberately avoids network access.
 
 Bootprint is released under the [MIT License](LICENSE).
+
+## License
+
+**Source-available proprietary** — evaluation under [LICENSE](./LICENSE); commercial / production use via [COMMERCIAL.md](./COMMERCIAL.md). See [LICENSE_TRANSITION_NOTICE.md](./LICENSE_TRANSITION_NOTICE.md).
