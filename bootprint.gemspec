@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
     "remediation for CI, Docker, staging, and production."
   ].join(" ")
   spec.homepage = "https://theworker02.github.io/bootprint/"
-  spec.license = "MIT"
+  spec.license = "Proprietary"
   spec.required_ruby_version = ">= 3.1"
   spec.required_rubygems_version = ">= 3.3.0"
 
