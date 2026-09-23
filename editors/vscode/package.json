@@ -1,4 +1,4 @@
-﻿{
+{
     "name":  "bootprint",
     "displayName":  "Bootprint",
     "description":  "Diagnose Ruby runtime-environment drift from VS Code.",
