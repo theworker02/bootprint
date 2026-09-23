@@ -30,7 +30,7 @@ class PackageTest < Minitest::Test
   def test_gemspec_is_valid_and_release_metadata_is_complete
     assert @specification.validate
     assert_equal Bootprint::VERSION, @specification.version.to_s
-    assert_equal "MIT", @specification.license
+    assert_equal "Proprietary", @specification.license
     assert_equal "https://rubygems.org", @specification.metadata["allowed_push_host"]
     assert_equal "true", @specification.metadata["rubygems_mfa_required"]
 
