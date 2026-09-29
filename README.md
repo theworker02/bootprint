@@ -1,4 +1,8 @@
 <p align="center">
+  <img src="docs/logo.svg" alt="bootprint official logo" width="128" height="128">
+</p>
+
+<p align="center">
   <img src="assets/branding/bootprint-logo-512.png" alt="Bootprint fingerprint and environment-drift logo" width="180">
 </p>
 
